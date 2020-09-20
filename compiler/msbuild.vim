@@ -28,7 +28,9 @@ else
     let s:build_file = cs#find_net_solution_file()
 endif
 
-execute 'CompilerSet makeprg=' . cs#get_net_compiler("msbuild") . "\\ " 
+let s:patha = cs#get_net_compiler("msbuild")
+let s:pathb = substitute(s:patha, "\ ", "\\\\\\ ", "g")
+execute 'CompilerSet makeprg=' . '\"' . s:pathb . '\"' . "\\ " 
             \ . "/nologo\\ /clp:Verbosity=quiet\\ /property:GenerateFullPaths=true\\ "
             \ . s:build_file
 
